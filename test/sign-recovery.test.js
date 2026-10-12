@@ -1,0 +1,20 @@
+'use strict';
+const test=require('node:test'), assert=require('node:assert/strict'), fs=require('fs'), os=require('os'), path=require('path');
+const {spawnSync}=require('child_process');
+test('one-off repair preserves original parties and refuses a repeated or potentially paid recovery', t=>{
+  const dir=fs.mkdtempSync(path.join(os.tmpdir(),'chz-recovery-'));
+  t.after(()=>fs.rmSync(dir,{recursive:true,force:true}));
+  const file=path.join(dir,'db.json'),script=path.join(__dirname,'../scripts/recover-sign-failures-20261005.js');
+  const rows=[{remoteJobId:9,clientRequestId:'employee:6712a120-36b7-45cc-9f50-5dd4ce80bab4',gtin:'04627174095142',quantity:100},{remoteJobId:10,clientRequestId:'employee:9e1e25d5-dba0-4c47-b36c-578d79a0a185',gtin:'04627174095067',quantity:60}].map(x=>({...x,state:'FAILED',lastError:'sign failed',serials:['fixture'],productionOrderId:'same-'+x.remoteJobId,productionDate:'2025-01-01'}));
+  fs.writeFileSync(file,JSON.stringify({automationIntents:rows,orders:[]}));
+  const run=()=>spawnSync(process.execPath,[script,'worker',file],{encoding:'utf8',windowsHide:true});
+  assert.equal(run().status,0);
+  const after=JSON.parse(fs.readFileSync(file));
+  assert.equal(after.automationIntents[0].state,'CLAIMED');
+  assert.equal(after.automationIntents[0].productionOrderId,'same-9');
+  assert.deepEqual(after.automationIntents[0].serials,['fixture']);
+  assert.notEqual(run().status,0);
+  rows[0].orderId='already-paid';
+  const unchanged=JSON.stringify({automationIntents:rows,orders:[]});fs.writeFileSync(file,unchanged);
+  assert.notEqual(run().status,0);assert.equal(fs.readFileSync(file,'utf8'),unchanged);
+});

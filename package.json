@@ -1,0 +1,16 @@
+{
+  "name": "chz-app",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Локальное приложение: заказ кодов маркировки Честный Знак (СУЗ-ОБЛАКО), ввод/вывод из оборота, DataMatrix, баланс",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node --test test/*.test.js"
+  },
+  "dependencies": {
+    "bwip-js": "^4.5.1",
+    "express": "^4.21.2",
+    "pdfkit": "^0.15.2"
+  }
+}

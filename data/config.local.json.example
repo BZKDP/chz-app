@@ -1,0 +1,28 @@
+{
+  "port": 3030,
+  "env": "PROD",
+  "trueApiBase": "https://markirovka.crpt.ru/api/v3/true-api",
+  "suzBase": "https://suzgrid.crpt.ru",
+
+  "omsId": "",
+  "omsConnection": "",
+  "productGroup": "bio",
+  "orgInn": "",
+  "nkApiKey": null,
+
+  "signerLocal": false,
+  "signerHost": "",
+  "signerUser": "",
+  "signerKey": "",
+  "thumbprint": "",
+  "csptest": "C:\\Program Files\\Crypto Pro\\CSP\\csptest.exe",
+  "signerWorkdir": "C:\\crpt-suz",
+  "signerScript": "C:\\crpt-suz\\chz_sign.ps1",
+
+  "chzWorkerEnabled": false,
+  "chzWorkerUrl": "",
+  "chzWorkerSecret": "",
+
+  "tariffNetKop": 50,
+  "vatPercent": 22
+}

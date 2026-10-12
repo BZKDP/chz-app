@@ -1,0 +1,32 @@
+node_modules/
+
+# Секреты и локальная конфигурация
+.env
+.env.*
+!.env.example
+data/config.local.json
+
+# Сертификаты и ключи УКЭП
+*.pem
+*.key
+*.cer
+*.crt
+*.pfx
+*.p12
+
+# Токены и реальные данные (коды маркировки — чувствительны)
+data/*.json
+!data/config.local.json.example
+data/backups/
+data/nk_backups/
+backup/
+backups/
+
+# Генерируемые артефакты
+output/
+work/
+tmp/
+dist/
+logs/
+*.log
+public/*.zip

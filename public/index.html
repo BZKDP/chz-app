@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#171717">
+  <title>GrafLab — Маркировка</title>
+  <link rel="stylesheet" href="/styles.css?v=20261005-signature">
+</head>
+<body>
+  <a class="skip-link" href="#main">Перейти к содержимому</a>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="company" href="/?view=dashboard" data-route="dashboard" aria-label="GrafLab Маркировка — главная">
+        <span class="company-mark" aria-hidden="true">G</span>
+        <span class="company-name"><strong>GrafLab</strong><small>Маркировка</small></span>
+      </a>
+      <nav class="side-nav" aria-label="Основная навигация">
+        <a href="/?view=dashboard" data-route="dashboard"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 13h6V4H4v9Zm0 7h6v-5H4v5Zm10 0h6v-9h-6v9Zm0-16v5h6V4h-6Z"/></svg>Обзор</a>
+        <a href="/?view=new" data-route="new"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5h2v6h6v2h-6v6h-2v-6H5v-2h6V5Z"/></svg>Новая партия</a>
+        <a href="/?view=bulk" data-route="bulk"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h4v4H4V5Zm6 0h10v2H10V5ZM4 11h4v4H4v-4Zm6 0h10v2H10v-2ZM4 17h4v4H4v-4Zm6 0h10v2H10v-2Z"/></svg>Массовый выпуск</a>
+        <a href="/?view=history" data-route="history"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h14v16H5V4Zm2 2v2h10V6H7Zm0 5v2h10v-2H7Zm0 5v2h7v-2H7Z"/></svg>Все партии</a>
+        <a href="/?view=system" data-route="system"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm9 5v-2l-2.1-.7a7 7 0 0 0-.7-1.7l1-2-1.4-1.4-2 1a7 7 0 0 0-1.7-.7L13 3h-2l-.7 2.1a7 7 0 0 0-1.7.7l-2-1-1.4 1.4 1 2a7 7 0 0 0-.7 1.7L3 11v2l2.1.7a7 7 0 0 0 .7 1.7l-1 2 1.4 1.4 2-1a7 7 0 0 0 1.7.7L11 21h2l.7-2.1a7 7 0 0 0 1.7-.7l2 1 1.4-1.4-1-2a7 7 0 0 0 .7-1.7L21 13Z"/></svg>Система</a>
+      </nav>
+      <div class="sidebar-status" id="sidebarStatus"><span class="health-dot checking" aria-hidden="true"></span><span><strong>Проверяем систему</strong><small>Подождите…</small></span></div>
+      <a class="advanced-nav" href="/advanced.html">Расширенный режим</a>
+    </aside>
+
+    <div class="workspace">
+      <header class="mobile-header">
+        <a class="mobile-brand" href="/?view=dashboard" data-route="dashboard"><span class="company-mark" aria-hidden="true">G</span><strong>GrafLab</strong></a>
+        <button class="icon-button" id="menuButton" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="mobileNav"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16v2H4V6Zm0 5h16v2H4v-2Zm0 5h16v2H4v-2Z"/></svg></button>
+      </header>
+      <nav class="mobile-nav" id="mobileNav" aria-label="Мобильная навигация" hidden>
+        <a href="/?view=dashboard" data-route="dashboard">Обзор</a><a href="/?view=new" data-route="new">Новая партия</a><a href="/?view=bulk" data-route="bulk">Массовый выпуск</a><a href="/?view=history" data-route="history">Все партии</a><a href="/?view=system" data-route="system">Система</a>
+      </nav>
+
+      <main id="main" tabindex="-1">
+        <section class="signature-notice" id="signatureNotice" role="status" aria-live="polite" hidden>
+          <div><strong id="signatureNoticeTitle">ЭЦП недоступна — проверьте флешку</strong><p id="signatureNoticeText"></p></div>
+          <button class="button primary" type="button" data-signature-recheck>ЭЦП подключена — проверить и продолжить</button>
+          <small>PIN вводится только в окне CryptoPro на ПК ЧЗ. Не вводите его на сайте и не отправляйте в чат.</small>
+        </section>
+        <section class="page" id="page-dashboard" aria-labelledby="dashboardTitle">
+          <header class="page-header">
+            <div><p class="overline">Рабочий кабинет</p><h1 id="dashboardTitle">Маркировка товаров</h1><p>Партии проходят обработку автоматически. Страница обновляется сама.</p></div>
+            <a class="button primary" href="/?view=new" data-route="new">Создать партию</a>
+          </header>
+          <div class="system-banner" id="systemBanner" role="status" aria-live="polite"><span class="health-dot checking" aria-hidden="true"></span><div><strong>Проверяем подключение</strong><p>Получаем состояние подписи и фоновой обработки.</p></div></div>
+          <div class="issue-date-filter" role="group" aria-label="Фильтр по дате выпуска">
+            <label>Дата выпуска<select data-date-period><option value="today">Сегодня</option><option value="yesterday">Вчера</option><option value="week">Последние 7 дней</option><option value="custom">Свой период</option><option value="all">За всё время</option></select></label>
+            <div class="issue-date-range" data-date-range hidden><label>С даты<input type="date" data-date-from></label><label>По дату включительно<input type="date" data-date-to></label></div>
+            <small data-date-note>По дню создания заказа · московское время</small>
+          </div>
+          <dl class="metrics" aria-label="Сводка за выбранный период">
+            <div><dt>В обработке</dt><dd id="metricActive">0</dd><small>пройдут этапы автоматически</small></div>
+            <div><dt>Готовы к печати</dt><dd id="metricReady">0</dd><small>коды введены в оборот</small></div>
+            <div><dt>Требуют проверки</dt><dd id="metricAttention">0</dd><small>обработка приостановлена</small></div>
+            <div><dt>Кодов за период</dt><dd id="metricToday">0</dd><small>по выбранным датам выпуска</small></div>
+          </dl>
+          <section class="panel" aria-labelledby="workTitle">
+            <div class="panel-header"><div><h2 id="workTitle">Партии за выбранные даты</h2><p id="lastSync">Обновляем данные…</p></div><button class="button quiet" id="refreshButton" type="button">Обновить</button></div>
+            <div id="activeOrders" class="order-list"></div>
+          </section>
+          <section class="panel bulk-dashboard" aria-labelledby="bulkWorkTitle">
+            <div class="panel-header"><div><h2 id="bulkWorkTitle">Массовые выпуски</h2><p>Общий прогресс по групповым заказам.</p></div><a class="button quiet" href="/?view=bulk" data-route="bulk">Новый массовый выпуск</a></div>
+            <div id="bulkBatchList" class="bulk-batch-list"></div>
+          </section>
+        </section>
+
+        <section class="page" id="page-new" aria-labelledby="newTitle" hidden>
+          <header class="page-header compact"><div><p class="overline">Новая партия</p><h1 id="newTitle">Заказать коды маркировки</h1><p>После подтверждения сервер выполнит остальные этапы самостоятельно.</p></div></header>
+          <form id="newOrderForm" class="order-form" novalidate>
+            <div class="form-main">
+              <section class="form-section" aria-labelledby="productHeading">
+                <div class="section-number" aria-hidden="true">1</div>
+                <div class="section-fields"><h2 id="productHeading">Товар</h2><p>Выберите точную карточку из Национального каталога.</p>
+                  <label for="productSearch">Карточка товара</label>
+                  <div class="product-combobox" id="productCombobox">
+                    <div class="product-combobox-control">
+                      <svg class="combobox-search-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m20 20-4.3-4.3a7 7 0 1 0-1.4 1.4L18.6 21 20 20ZM5 11a6 6 0 1 1 12 0 6 6 0 0 1-12 0Z"/></svg>
+                      <input id="productSearch" name="productSearch" type="search" role="combobox" aria-autocomplete="list" aria-controls="productOptions" aria-expanded="false" placeholder="Начните вводить название или GTIN…" autocomplete="off">
+                      <button class="combobox-toggle" id="productComboboxButton" type="button" aria-label="Показать товары" aria-controls="productOptions" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7 9 5 5 5-5 1.4 1.4L12 16.8 5.6 10.4 7 9Z"/></svg></button>
+                    </div>
+                    <div class="product-options" id="productOptions" role="listbox" aria-label="Товары из Национального каталога" hidden></div>
+                  </div>
+                  <input id="productSelect" name="gtin" type="hidden">
+                  <div class="official-card" id="selectedProductCard" hidden></div>
+                  <div class="field-message neutral" id="readinessMessage" aria-live="polite">Выберите товар — система проверит его готовность.</div>
+                </div>
+              </section>
+              <section class="form-section" aria-labelledby="batchHeading">
+                <div class="section-number" aria-hidden="true">2</div>
+                <div class="section-fields"><h2 id="batchHeading">Параметры партии</h2><p>Количество равно числу товарных единиц. Два отпечатка на этикетке не удваивают заказ.</p>
+                  <div class="field-grid three">
+                    <label>Количество<input id="quantity" name="quantity" type="number" min="1" max="5000" step="1" inputmode="numeric" autocomplete="off" value="1" required></label>
+                    <label>Дата производства<input id="productionDate" name="productionDate" type="date" autocomplete="off" required></label>
+                    <label>Годен до<input id="expirationDate" name="expirationDate" type="date" autocomplete="off" required></label>
+                  </div>
+                  <button class="text-action" id="twoYearsButton" type="button">Рассчитать срок + 2 года</button>
+                  <div class="field-message error" id="formError" role="alert" hidden></div>
+                </div>
+              </section>
+            </div>
+            <aside class="order-summary" aria-labelledby="summaryTitle">
+              <h2 id="summaryTitle">Итого</h2><dl>
+                <div><dt>Товар</dt><dd id="summaryProduct">Не выбран</dd></div><div><dt>Количество</dt><dd id="summaryQuantity">1 шт.</dd></div><div><dt>Этикеток</dt><dd id="summaryLabels">1 шт.</dd></div><div class="summary-total"><dt>Стоимость кодов</dt><dd id="summaryCost">—</dd></div>
+              </dl><p class="summary-note">На каждой этикетке будут 2 одинаковых кода: для банки и пакета.</p><button class="button primary full" id="submitOrder" type="submit">Проверить заказ</button>
+            </aside>
+          </form>
+        </section>
+
+        <section class="page" id="page-bulk" aria-labelledby="bulkTitle" hidden>
+          <header class="page-header compact"><div><p class="overline">Массовый выпуск</p><h1 id="bulkTitle">Заказать коды сразу на несколько товаров</h1><p>Выберите готовые карточки, укажите даты и подтвердите один общий запуск.</p></div><button class="button quiet" id="reloadCatalogButton" type="button">Обновить каталог ЧЗ</button></header>
+          <div class="system-banner good bulk-info"><span class="health-dot ok" aria-hidden="true"></span><div><strong>По умолчанию — 1 код на каждый товар</strong><p>Наборы и комплекты исключены. Один код печатается дважды на одной этикетке, поэтому количество не удваивается.</p></div></div>
+          <form id="bulkOrderForm" novalidate>
+            <section class="panel bulk-controls" aria-labelledby="bulkDatesTitle">
+              <div class="bulk-control-copy"><h2 id="bulkDatesTitle">Общие даты партии</h2><p>Заполните их один раз и примените ко всем выбранным товарам. В таблице даты можно исправить отдельно.</p></div>
+              <div class="bulk-date-grid">
+                <label for="bulkProductionDate">Дата производства<input id="bulkProductionDate" name="bulkProductionDate" type="date" autocomplete="off"></label>
+                <label for="bulkExpirationDate">Годен до<input id="bulkExpirationDate" name="bulkExpirationDate" type="date" autocomplete="off"></label>
+                <button class="button quiet" id="bulkTwoYearsButton" type="button">Срок + 2 года</button>
+                <button class="button primary" id="applyBulkDatesButton" type="button">Применить ко всем</button>
+              </div>
+            </section>
+            <section class="panel bulk-catalog" aria-labelledby="bulkCatalogTitle">
+              <div class="bulk-toolbar">
+                <div><h2 id="bulkCatalogTitle">Товары из Национального каталога</h2><p id="catalogSource" aria-live="polite">Загружаем зарегистрированные карточки…</p></div>
+                <label class="search-field" for="bulkProductSearch"><span class="visually-hidden">Поиск товаров</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m20 20-4.3-4.3a7 7 0 1 0-1.4 1.4L18.6 21 20 20ZM5 11a6 6 0 1 1 12 0 6 6 0 0 1-12 0Z"/></svg><input id="bulkProductSearch" name="bulkProductSearch" type="search" placeholder="Название или GTIN…" autocomplete="off"></label>
+              </div>
+              <div class="bulk-select-actions"><button class="text-action" id="selectAllReadyButton" type="button">Выбрать все готовые</button><button class="text-action muted" id="clearBulkSelectionButton" type="button">Снять выбор</button></div>
+              <div class="table-wrap bulk-table-wrap">
+                <table class="bulk-table"><thead><tr><th class="check-column"><span class="visually-hidden">Выбор</span></th><th>Товар по данным ЧЗ</th><th>Готовность</th><th>Кодов</th><th>Произведено</th><th>Годен до</th></tr></thead><tbody id="bulkProductRows"></tbody></table>
+              </div>
+              <div class="empty" id="bulkCatalogEmpty" hidden><strong>Товары не найдены</strong><p>Измените поисковый запрос.</p></div>
+            </section>
+            <div class="field-message error" id="bulkFormError" role="alert" hidden></div>
+            <section class="bulk-submit-bar" aria-label="Итог массового выпуска">
+              <div><span>Выбрано товаров</span><strong id="bulkSelectedCount">0</strong></div><div><span>Всего кодов</span><strong id="bulkCodeCount">0</strong></div><div><span>Стоимость</span><strong id="bulkCost">—</strong></div>
+              <button class="button primary" id="bulkSubmitButton" type="submit">Проверить массовый выпуск</button>
+            </section>
+          </form>
+        </section>
+
+        <section class="page" id="page-history" aria-labelledby="historyTitle" hidden>
+          <header class="page-header compact"><div><p class="overline">Журнал операций</p><h1 id="historyTitle">Все партии</h1><p>Поиск, статусы и готовые файлы для печати.</p></div><a class="button primary" href="/?view=new" data-route="new">Создать партию</a></header>
+          <section class="panel">
+            <div class="table-toolbar">
+              <label class="search-field" for="orderSearch"><span class="visually-hidden">Поиск партий</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m20 20-4.3-4.3a7 7 0 1 0-1.4 1.4L18.6 21 20 20ZM5 11a6 6 0 1 1 12 0 6 6 0 0 1-12 0Z"/></svg><input id="orderSearch" name="orderSearch" type="search" placeholder="Название, GTIN или номер заказа…" autocomplete="off"></label>
+              <label class="filter-field" for="statusFilter"><span>Статус</span><select id="statusFilter" name="statusFilter" autocomplete="off"><option value="all">Все</option><option value="active">В обработке</option><option value="ready">Готовы</option><option value="attention">Требуют проверки</option><option value="archive">Архив</option></select></label>
+            </div>
+            <div class="issue-date-filter" role="group" aria-label="Фильтр по дате выпуска">
+              <label>Дата выпуска<select data-date-period><option value="today">Сегодня</option><option value="yesterday">Вчера</option><option value="week">Последние 7 дней</option><option value="custom">Свой период</option><option value="all">За всё время</option></select></label>
+              <div class="issue-date-range" data-date-range hidden><label>С даты<input type="date" data-date-from></label><label>По дату включительно<input type="date" data-date-to></label></div>
+              <small data-date-note>По дню создания заказа · московское время</small>
+            </div>
+            <div class="table-wrap"><table><thead><tr><th>Партия</th><th>Заказ создан</th><th>Количество</th><th>Статус</th><th><span class="visually-hidden">Действия</span></th></tr></thead><tbody id="historyRows"></tbody></table></div>
+            <div class="empty" id="historyEmpty" hidden><strong>Партии не найдены</strong><p>Измените поиск или фильтр.</p></div>
+          </section>
+        </section>
+
+        <section class="page" id="page-system" aria-labelledby="systemTitle" hidden>
+          <header class="page-header compact"><div><p class="overline">Состояние сервиса</p><h1 id="systemTitle">Система</h1><p>Подпись, Честный ЗНАК и автоматическая обработка.</p></div><button class="button quiet" id="checkSystemButton" type="button">Проверить сейчас</button></header>
+          <div class="system-grid">
+            <section class="system-card"><span class="system-label">Связь с офисным ПК</span><strong id="systemConnection">Проверяем…</strong><p id="systemConnectionNote">Последний сигнал и восстановление связи.</p></section>
+            <section class="system-card"><span class="system-label">Часы и обновление программы</span><strong id="systemClock">Проверяем…</strong><p id="systemClockNote">Согласованность времени с сервером.</p></section>
+            <section class="system-card"><span class="system-label">Электронная подпись</span><strong id="systemSigner">Проверяем…</strong><p id="systemSignerNote">Связываемся с компьютером подписи.</p><button class="button quiet" type="button" data-signature-recheck>ЭЦП подключена — проверить и продолжить</button></section>
+            <section class="system-card"><span class="system-label">Сертификат</span><strong id="systemCertificate">Проверяем…</strong><p id="systemCertificateNote">Срок действия сертификата.</p></section>
+            <section class="system-card"><span class="system-label">Фоновая обработка</span><strong id="systemWorker">Проверяем…</strong><p id="systemWorkerNote">Очередь заказов.</p></section>
+            <section class="system-card"><span class="system-label">Авторизация СУЗ</span><strong id="systemToken">Проверяем…</strong><p id="systemTokenNote">Токен обновляется автоматически.</p></section>
+          </div>
+          <section class="panel system-actions"><div><h2>Инструменты администратора</h2><p>Расширенный режим предназначен для диагностики и нестандартных операций.</p></div><a class="button quiet" href="/advanced.html">Открыть расширенный режим</a></section>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <dialog id="confirmDialog" aria-labelledby="confirmTitle">
+    <form method="dialog" class="dialog-content" id="confirmForm">
+      <div class="dialog-header"><div><p class="overline">Подтверждение</p><h2 id="confirmTitle">Проверьте заказ</h2></div><button class="icon-button" type="submit" value="cancel" aria-label="Закрыть"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6.7 5.3 5.3 5.3 5.3-5.3 1.4 1.4-5.3 5.3 5.3 5.3-1.4 1.4-5.3-5.3-5.3 5.3-1.4-1.4 5.3-5.3-5.3-5.3 1.4-1.4Z"/></svg></button></div>
+      <dl class="confirm-list" id="confirmSummary"></dl>
+      <div class="cost-warning"><strong>Заказ платный</strong><p>После подтверждения коды будут заказаны в промышленном контуре. Повторно нажимать кнопку не нужно.</p></div>
+      <div class="dialog-actions"><button class="button quiet" type="submit" value="cancel">Вернуться</button><button class="button primary" id="confirmButton" type="button">Заказать коды</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="detailsDialog" aria-labelledby="detailsTitle">
+    <div class="dialog-content details-content">
+      <div class="dialog-header"><div><p class="overline">Партия</p><h2 id="detailsTitle">Сведения о партии</h2></div><button class="icon-button" id="closeDetails" type="button" aria-label="Закрыть"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6.7 5.3 5.3 5.3 5.3-5.3 1.4 1.4-5.3 5.3 5.3 5.3-1.4 1.4-5.3-5.3-5.3 5.3-1.4-1.4 5.3-5.3-5.3-5.3 1.4-1.4Z"/></svg></button></div>
+      <div id="detailsBody"></div>
+    </div>
+  </dialog>
+  <dialog id="bulkConfirmDialog" aria-labelledby="bulkConfirmTitle">
+    <div class="dialog-content bulk-confirm-content">
+      <div class="dialog-header"><div><p class="overline">Финальная проверка</p><h2 id="bulkConfirmTitle">Подтвердите массовый выпуск</h2></div><button class="icon-button" id="closeBulkConfirm" type="button" aria-label="Закрыть"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6.7 5.3 5.3 5.3 5.3-5.3 1.4 1.4-5.3 5.3 5.3 5.3-1.4 1.4-5.3-5.3-5.3 5.3-1.4-1.4 5.3-5.3-5.3-5.3 1.4-1.4Z"/></svg></button></div>
+      <div class="bulk-confirm-summary" id="bulkConfirmSummary"></div>
+      <div class="bulk-confirm-list" id="bulkConfirmList"></div>
+      <div class="cost-warning"><strong>Это один запуск нескольких платных заказов</strong><p>После подтверждения сервер последовательно закажет коды и продолжит работу даже при закрытой вкладке. При неоднозначной ошибке очередь остановится без повторного списания.</p></div>
+      <div class="dialog-actions"><button class="button quiet" id="cancelBulkConfirm" type="button">Вернуться</button><button class="button primary" id="confirmBulkButton" type="button">Заказать все коды</button></div>
+    </div>
+  </dialog>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="/app.js?v=20261005-signature"></script>
+</body>
+</html>

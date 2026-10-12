@@ -1,0 +1,13 @@
+{
+  "name": "chz-employee-portal",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Public coordinator for the CHZ office worker",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}

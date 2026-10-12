@@ -1,0 +1,801 @@
+ 
+ Честный знак: методы API SUZ/OMS, True API, API каталога 
+ Дата обновления: 08.07.2026 
+ Рабочий реестр endpoint - ов , извлечённых из PDF документации ЧЗ. Полные параметры, тела запросов и ответы смотреть в первичных PDF по указанной странице. 
+ Источники 
+ docs.crpt.ru true api.pdf — Описание True API v.694.0 от 06.07.2026, 850 стр. 
+ docs . crpt . ru api catalog . pdf — API Каталога маркированных товаров, 119 стр. 
+ docs . crpt . ru api common . pdf — общая инструкция API , 36 стр. 
+ docs.crpt.ru api tokens.pdf — dynamic clientToken, 21 стр. 
+ Developer's Guide 3.0.37 OMS CLOUD EN — SUZ/OMS API, 661 стр. 
+ 1. Базовые адреса и авторизация 
+ API 
+ Base URL 
+ Авторизация 
+ Назначение 
+ SUZ/OMS PROD 
+ https://suzgrid.crpt.ru 
+ clientToken; для ряда POST X-Signature detached CMS 
+ Заказ КМ, статус, получение КМ, utilisation, aggregation, dropout. 
+ True API PROD 
+ https://markirovka.crpt.ru/api/v3/true-api 
+ Authorization: Bearer &lt;token/uuidToken&gt;; иногда X-Signature 
+ Документы ГИС МТ, КИ, товары, чеки, ELK , баланс, выгрузки. 
+ API каталога 
+ endpoint -ы / v 3 и / v 4 из PDF 
+ Bearer token или apikey 
+ Карточки товаров, атрибуты, бренды, разрешительные документы. 
+ 2. SUZ/OMS API v3 — 29 методов 
+ Раздел 
+ HTTP 
+ Endpoint 
+ Метод 
+ Назначение 
+ 4.4.1 
+ POST 
+ /api/v3/order?omsId={omsId} 
+ Create Marking Code Emission Order 
+ Создать заказ эмиссии КМ; orderId, expectedCompleteTimestamp. 
+ 4.4.2 
+ GET 
+ /api/v3/order/status?omsId={omsId}&amp;orderId={orderId}&amp;gtin={gtin} 
+ Get a status of MC array from the order 
+ Статус массива КМ: availableCodes, bufferStatus и др. 
+ 4.4.3 
+ GET 
+ /api/v3/order/list?omsId={omsId} 
+ Obtain a List of Marking Code Orders 
+ Список заказов КМ. 
+ 4.4.4 
+ GET 
+ /api/v3/codes?omsId={omsId}&amp;orderId={orderId}&amp;quantity={quantity}&amp;gtin={gtin} 
+ Obtain MC from the MC order 
+ Получить КМ; codes[], blockId. 
+ 4.4.5 
+ GET 
+ /api/v3/order/codes/blocks?omsId={omsId}&amp;orderId={orderId}&amp;gtin={gtin} 
+ Obtain a List of Marking Code Package Identifiers 
+ Получить blockId. 
+ 4.4.6 
+ GET 
+ /api/v3/order/codes/retry?omsId={omsId}&amp;blockId={blockId} 
+ Re-obtain marking codes from marking code order 
+ Повторно получить блок КМ. 
+ 4.4.7 
+ GET 
+ /api/v3/order/product?omsId={omsId}&amp;orderId={orderId} 
+ Get Goods Attributes 
+ Атрибуты товаров/ GTIN в заказе. 
+ 4.4.8 
+ POST 
+ /api/v3/order/close?omsId={omsId} 
+ Close MC order/suborder 
+ Закрыть заказ/подзаказ. 
+ 4.4.9 
+ POST 
+ /api/v3/dropout?omsId={omsId} 
+ Send Report on MC Disposal / Rejection 
+ Выбытие/отбраковка КМ. 
+ 4.4.10 
+ POST 
+ /api/v3/aggregation?omsId={omsId} 
+ Send Report on MC Aggregation 
+ Агрегация КМ. 
+ 4.4.11 
+ POST 
+ /api/v3/utilisation?omsId={omsId} 
+ Send Report on MC Utilization (Application) 
+ Нанесение/ввод в оборот. 
+ 4.4.12 
+ POST 
+ /api/v3/surplus?omsId={omsId} 
+ Send a Notification of Acceptance of ICs 
+ Принятие КИ к учету. 
+ 4.4.13 
+ GET 
+ /api/v3/report/info?omsId={omsId}&amp;reportId={reportId} 
+ Obtain the Report Processing Status 
+ Статус отчёта. 
+ 4.4.14 
+ GET 
+ /api/v3/providers?omsId={omsId} 
+ Getting a list of Service Providers 
+ Сервис-провайдеры. 
+ 4.4.15 
+ GET 
+ /api/v3/quality?orderId={orderId}&amp;omsId={omsId}&amp;limit={limit}&amp;skip={skip} 
+ List of identifiers of reports Application data 
+ Идентификаторы отчётов Application data. 
+ 4.4.16 
+ GET 
+ /api/v3/quality/cisList?reportId={reportId}&amp;omsId={omsId} 
+ List of ICs from Application data report 
+ КИ из отчёта Application data. 
+ 4.4.17 
+ GET 
+ /api/v3/mod?omsId={omsId}&amp;productGroup={productGroup}&amp;limit={limit}&amp;skip={skip} 
+ Receiving the business places 
+ МОД. 
+ 4.4.18 
+ GET 
+ /api/v3/receipts/receipt?omsId={omsId}&amp;resultDocId={resultDocId} 
+ Receive a receipt by unique document identifier 
+ Квитанция по документу/отчёту. 
+ 4.4.19 
+ POST 
+ /api/v3/receipts/receipt/search?omsId={omsId} 
+ Obtaining receipt by set filters 
+ Поиск квитанций. 
+ 4.4.20 
+ GET 
+ /api/v3/receipts/document?resultDocId={resultDocId}&amp;docId={docId}&amp;omsId={omsId} 
+ Receiving a document related to receipt 
+ Документ по квитанции. 
+ 4.4.21 
+ GET 
+ /api/v3/documents/search?omsId={omsId}&amp;documentType={documentType}&amp;limit={limit}&amp;skip={skip} 
+ Search of documents 
+ Поиск документов OMS. 
+ 4.4.22 
+ GET 
+ /api/v3/documents/content?omsId={omsId}&amp;docId={docId} 
+ Get document contents 
+ Содержимое документа. 
+ 4.4.23 
+ DELETE 
+ /api/v3/documents/delete?omsId={omsId}&amp;docId={docId} 
+ Delete document 
+ Удалить документ. 
+ 4.4.24 
+ POST 
+ /api/v3/documents/sign?omsId={omsId} 
+ Sign document 
+ Подписать документ. 
+ 4.4.25 
+ GET 
+ /api/v3/ping?omsId={omsId} 
+ Check OMS availability 
+ Доступность OMS. 
+ 4.4.26 
+ GET 
+ /api/v3/integration/connection?omsId={omsId}&amp;limit={limit}&amp;offset={offset} 
+ List of integration solution installations 
+ Внешние подключения. 
+ 4.4.27 
+ DELETE 
+ /api/v3/integration/connection?omsId={omsId}&amp;omsConnection={omsConnection} 
+ Delete integration solution instance 
+ Удалить внешнее подключение. 
+ 4.4.28 
+ GET 
+ /api/v3/integration/profile 
+ Get an ID of GCP profile 
+ ID профиля УОТ. 
+ 4.4.29 
+ POST 
+ /api/v3/orders/search 
+ Get information on MC orders by filters 
+ Заказы КМ по фильтрам. 
+ 3. True API — методы из docs.crpt.ru true api.pdf 
+ Извлечено строк методов/ URL : 121. Страница = страница PDF . 
+ Стр. 
+ HTTP 
+ Endpoint 
+ Раздел/назначение 
+ 6 
+ GET 
+ /auth/key 
+ 1.5.1. Запрос авторизации при единой аутентификации 
+ 7 
+ POST 
+ /auth/simpleSignIn 
+ 1.5.2. Получение ключа сессии при единой аутентификации 
+ 10 
+ GET 
+ /elk/crm-api/document?guid={id} 
+ 2.1.3. Шаг 3: получение (выгрузка) черновиков договоров для подписания УОТ 
+ 10 
+ GET 
+ /elk/crm-api/documents 
+ 2.1.2. Шаг 2: получение сведений по черновикам договоров между УОТ и ГИС МТ 
+ 10 
+ POST 
+ /elk/outgoing-documents/{id}/signature 
+ 2.1.4. Шаг 4: подписание договоров 
+ 11 
+ GET 
+ /elk/outgoing-documents/{edoDocumentId} 
+ 2.1.5. Шаг 5: выгрузка подписанных договоров 
+ 13 
+ GET 
+ /participants 
+ см. раздел PDF 
+ 16 
+ POST 
+ /api/v3/true-api/mods/add 
+ 3.2. Метод добавления мест осуществления деятельности 
+ 20 
+ DELETE 
+ /api/v3/true-api/mod 
+ 3.3. Метод удаления мест осуществления деятельности 
+ 22 
+ POST 
+ /api/v3/true-api/mods/info 
+ 3.4. Метод проверки статуса места осуществления деятельности организации 
+ 24 
+ GET 
+ /api/v3/true-api/mods/list 
+ 3.5. Метод получения списка МОД по участнику оборота товаров 
+ 27 
+ POST 
+ /api/v3/true-api/mrd/delegation/search 
+ 3.6. Проверка наличия МЧД по ИНН физического лица 
+ 29 
+ GET 
+ /elk/crm-api/documents 
+ 3.7.1. Получение сведений по черновикам заключённых договоров между УОТ и Оператором ГИС МТ 
+ 32 
+ GET 
+ /elk/crm-api/document 
+ 3.7.2. Получение сведений по заключённым договорам между УОТ и ГИС МТ 
+ 33 
+ POST 
+ /elk/outgoing-documents/{documentId}/signature 
+ 3.7.3. Подписание договоров 
+ 34 
+ GET 
+ /elk/incoming-documents 
+ 3.7.4. Получение статуса заключения договора: входящие документы 
+ 34 
+ GET 
+ /elk/outgoing-documents 
+ 3.7.4. Получение статуса заключения договора: исходящие документы 
+ 36 
+ POST 
+ /elk/crm-api/prequests 
+ 3.7.6. Получение счёта на оплату 
+ 36 
+ GET 
+ /elk/incoming-documents/{documentId}/content 
+ 3.7.5. Получение сведений о заключенных договорах: входящий документ 
+ 36 
+ GET 
+ /elk/outgoing-documents/{documentId} 
+ 3.7.5. Получение сведений о заключенных договорах: исходящий документ 
+ 38 
+ GET 
+ /elk/product-groups/balance/all 
+ 3.8.1. Получение информации о балансе денежных средств по всем товарным группам 
+ 39 
+ GET 
+ /elk/product-groups/balance 
+ 3.8.2. Получение информации о балансе денежных средств по одной товарной группе 
+ 44 
+ POST 
+ /lk/documents/create 
+ 4.1.1. Единый метод создания документов 
+ 274 
+ POST 
+ /documents/aggregation/create 
+ 4.3.1. Формирование упаковки («Альтернативная табачная продукция», « Никотиносодержащая продукция», 
+ 279 
+ POST 
+ /api/v3/true-api/party-numbers/generate 
+ 4.4.1. Метод генерации номеров партий 
+ 282 
+ POST 
+ /api/v3/true-api/party-numbers/reserve 
+ 4.4.2. Метод резервирования номеров партий 
+ 285 
+ GET 
+ /api/v3/true-api/party-numbers/list 
+ 4.4.3. Метод получения зарезервированных номеров партий 
+ 287 
+ POST 
+ /api/v4/true-api/cises/search 
+ 5.1.1. Метод получения информации о списке КИ по заданным фильтрам 
+ 299 
+ POST 
+ /api/v3/true-api/cises/info 
+ 5.1.2. Метод получения общедоступной информации о КИ по списку 
+ 312 
+ POST 
+ /cises/short/list 
+ 5.1.3. Метод получения общедоступной информации о КИ по списку (упрощённый атрибутивный состав) 
+ 321 
+ POST 
+ /cises/list 
+ см. раздел PDF 
+ 329 
+ POST 
+ /cises/eaes/info 
+ см. раздел PDF 
+ 333 
+ POST 
+ /cises/eaes/check-export 
+ см. раздел PDF 
+ 334 
+ POST 
+ /cises/check 
+ 5.1.7. Метод верификации кода маркировки 
+ 335 
+ POST 
+ /cises/history 
+ 5.2. Метод получения истории движения КИ 
+ 339 
+ POST 
+ /cises/aggregated/list 
+ см. раздел PDF 
+ 340 
+ POST 
+ /cises/history/list 
+ 5.4. Метод истории агрегирования кода идентификации 
+ 342 
+ POST 
+ /api/v4/true-api/tn-ved/search 
+ 5.5. Метод получения списка десятизначных кодов ТН ВЭД 
+ 344 
+ POST 
+ /api/v4/true-api/product/info 
+ см. раздел PDF 
+ 354 
+ GET 
+ /product/gtin 
+ 5.6.2. Метод получения списка кодов товаров ( GTIN ) УОТ по ИНН 
+ 357 
+ POST 
+ /api/v4/true-api/rd/list 
+ 5.7. Метод получения информации о разрешительном документе по его номеру 
+ 362 
+ POST 
+ /agreement-registry/agreement 
+ 5.8.1. Метод создания документа согласия о предоставлении сведений о КИ 
+ 364 
+ POST 
+ /agreement-registry/cancellation 
+ см. раздел PDF 
+ 366 
+ GET 
+ /agreement-registry/agreement/list 
+ 5.8.3. Метод отображения списка документов согласия о предоставлении информации 
+ 371 
+ GET 
+ /agreement-registry/{id}/print-form 
+ 5.8.4. Метод получения тела документа согласия или документа аннулирования согласия 
+ 372 
+ POST 
+ /agreement-registry/publish 
+ 5.8.5. Метод подписания документа согласия или документа аннулирования согласия о предоставлении 
+ 374 
+ GET 
+ /agreement-registry/trusted/{ownerInn}/list 
+ см. раздел PDF 
+ 375 
+ GET 
+ /agreement-registry/trusted/{ownerInn} 
+ 5.8.7. Метод проверки ИНН доверенного участника оборота товаров 
+ 377 
+ GET 
+ /agreement-registry/agreement/{id}/trusted-inns 
+ см. раздел PDF 
+ 378 
+ POST 
+ /cises/gz/info 
+ 5.9. Метод проверки КИ ТГ "Табачная продукция" на вхождение в "серую зону" 
+ 380 
+ POST 
+ /warehouse/balance 
+ 5.10. Метод получения актуального баланса на складе 
+ 388 
+ POST 
+ /warehouse/operations 
+ 5.11. Метод получения списка операций на складе 
+ 398 
+ POST 
+ /api/v3/true-api/product/gtin-weight/cis-count 
+ 5.12. Метод расчёта количества КИ на основании веса товара 
+ 403 
+ GET 
+ /api/v4/true-api/doc/list 
+ 6.1. Метод получения списка загруженных документов в ГИС МТ 
+ 407 
+ POST 
+ /api/v3/true-api/receipt/search 
+ см. раздел PDF 
+ 415 
+ GET 
+ /api/v4/true-api/doc/{docId}/info 
+ см. раздел PDF 
+ 433 
+ GET 
+ /api/v4/true-api/receipt/{receiptId}/info 
+ 6.4. Метод получения содержимого чека ККТ по идентификатору 
+ 442 
+ POST 
+ /document/reprocess 
+ см. раздел PDF 
+ 444 
+ POST 
+ /doc/validator/create 
+ см. раздел PDF 
+ 445 
+ POST 
+ /doc/validator/status 
+ 6.7. Метод получения статуса обработки документа 
+ 447 
+ GET 
+ /doc/cises 
+ 6.8. Метод получения списка кодов идентификации и кодов товара по идентификатору документа 
+ 449 
+ GET 
+ /documents/edo/tpr/ud 
+ 7.1. Метод получения квитанций результата обработки универсального документа по 
+ 455 
+ GET 
+ /receipt/documents 
+ 7.2. Метод получения квитанции результата обработки чека по идентификатору чека 
+ 470 
+ POST 
+ /dispenser/tasks 
+ 8.3.1. Получение ошибок по результатам обработки документов 
+ 471 
+ POST 
+ /dispenser/tasks 
+ 8.3.2. Получение списка КИ участника оборота товаров по заданному фильтру 
+ 474 
+ POST 
+ /dispenser/tasks 
+ 8.3.3. Получение данных о движении кодов идентификации по агентско-комиссионной схеме 
+ 478 
+ POST 
+ /dispenser/tasks 
+ см. раздел PDF 
+ 480 
+ POST 
+ /dispenser/tasks 
+ 8.3.5. Получение сведений об оптовых и розничных продажах в разрезе ИНН 
+ 483 
+ POST 
+ /dispenser/tasks 
+ 8.3.6. Получение сведений об оборачиваемости товара 
+ 486 
+ POST 
+ /dispenser/tasks 
+ см. раздел PDF 
+ 488 
+ POST 
+ /dispenser/tasks 
+ 8.3.8. Получение сведений о средневзвешенной цене в разрезе по GTIN 
+ 491 
+ POST 
+ /dispenser/tasks 
+ 8.3.9. Получение перечня кодов товаров без определённого производителя 
+ 493 
+ POST 
+ /dispenser/tasks 
+ 8.3.10. Получение сведений об ошибках в чеках 
+ 497 
+ POST 
+ /dispenser/tasks 
+ 8.3.11. Получение сведений об ошибках в УД 
+ 504 
+ POST 
+ /dispenser/tasks 
+ 8.3.12. Получение сведений по карточкам товаров 
+ 507 
+ POST 
+ /dispenser/tasks 
+ 8.3.13. Получение сведений по товарам и их владельцам, которые используют зарегистрированные товарные 
+ 509 
+ POST 
+ /dispenser/tasks 
+ 8.3.14. Получение сведений о количестве и объёме введённых в оборот товаров 
+ 511 
+ POST 
+ /dispenser/tasks 
+ 8.3.15.1. Выгрузка сведений об отклонениях 
+ 514 
+ POST 
+ /api/v3/true-api/directory/statistics 
+ 8.3.15.2. Метод получения справочника категорий и видов отклонений 
+ 517 
+ POST 
+ /dispenser/tasks 
+ см. раздел PDF 
+ 520 
+ POST 
+ /dispenser/tasks 
+ см. раздел PDF 
+ 522 
+ POST 
+ /dispenser/tasks 
+ 8.3.18. Получение сведений по акцизам 
+ 525 
+ POST 
+ /dispenser/tasks 
+ см. раздел PDF 
+ 526 
+ POST 
+ /dispenser/tasks 
+ 8.3.20. Получение сведений по эмиссии и нанесению кодов маркировки 
+ 529 
+ POST 
+ /dispenser/tasks 
+ см. раздел PDF 
+ 531 
+ POST 
+ /dispenser/tasks 
+ 8.3.22. Продажи по аномальным ценам 
+ 533 
+ POST 
+ /dispenser/tasks 
+ 8.3.23. Получение сведений о количестве и объёме переданных товаров 
+ 535 
+ POST 
+ /dispenser/tasks 
+ 8.3.24. Получение сведений о количестве и объёме выведенных из оборота товаров 
+ 540 
+ POST 
+ /dispenser/tasks 
+ 8.3.25. Получение сведений о продаже агентами товаров, поставленных участником 
+ 542 
+ POST 
+ /dispenser/tasks 
+ 8.3.26. Получение сведений об отчёте по разрешительной документации в карточках товаров 
+ 546 
+ GET 
+ /dispenser/tasks/{taskId} 
+ 8.5. Метод получения статуса задания на выгрузку 
+ 548 
+ GET 
+ /dispenser/tasks 
+ 8.5.1. Метод получения статусов заданий на выгрузку 
+ 550 
+ GET 
+ /dispenser/results 
+ 8.6. Метод получения результирующих ID выгрузок данных 
+ 553 
+ GET 
+ /dispenser/results/{resultId}/file 
+ 8.7. Метод получения ZIP -файла выгрузки 
+ 564 
+ GET 
+ /dispenser/tasktypes/available_count?taskTypeShortName={taskTypeShortName}&amp;pg={pg} 
+ 8.8. Метод получения информации о числе доступных выгрузок по типу задания 
+ 565 
+ GET 
+ /dispenser/tasktypes/reports/{report_id}/available_count?pg={pg} 
+ 8.9. Метод получения информации о числе доступных выгрузок по отчёту 
+ 566 
+ DELETE 
+ /api/v3/true-api/dispenser/results/{resultId} 
+ 8.10. Метод удаления файлов выгрузки по результирующему ID 
+ 569 
+ GET 
+ /api/v4/true-api/edo/inn/{inn} 
+ 9.1. Публичный метод получения идентификатора абонента в ЭДО Лайт 
+ 570 
+ GET 
+ /elk/incoming-documents/{documentId} 
+ 9.2. ZIP -архив документа ЭДО Лайт: входящий документ 
+ 570 
+ GET 
+ /elk/outgoing-documents/{documentId} 
+ 9.2. ZIP -архив документа ЭДО Лайт: исходящий документ 
+ 573 
+ GET 
+ /nk/attributes 
+ 10.2. Метод получения списка атрибутов как публичных, так и приватных для запрашивающего 
+ 582 
+ GET 
+ /nk/brands 
+ 10.3. Метод получения списка торговых марок 
+ 584 
+ POST 
+ /nk/linked-accounts 
+ 10.4. Метод получения списка субаккаунтов компании 
+ 587 
+ POST 
+ /nk/linked-accounts-sign 
+ 10.5. Метод подписи предоставления или отзыва разрешения на использование КИ 
+ 590 
+ POST 
+ /nk/linked-accounts-documents 
+ см. раздел PDF 
+ 593 
+ GET 
+ /nk/categories 
+ 10.7. Метод получения дерева категорий (корень дерева не возвращается) 
+ 595 
+ GET 
+ /nk/product 
+ 10.8. Метод получения полной информации о товаре 
+ 612 
+ GET 
+ /nk/short-product 
+ 10.9. Метод получения краткой информации о товаре 
+ 620 
+ GET 
+ /nk/feed-product 
+ 10.10. Метод получения карточки товара, в том числе неопубликованной карточки 
+ 631 
+ POST 
+ /nk/feed-product-sign-pkcs 
+ 10.11. Метод подписи карточки товара 
+ 634 
+ POST 
+ /nk/feed-product-document 
+ 10.12. Метод получения XML товаров по массиву ID товаров или коду товара 
+ 636 
+ POST 
+ /nk/feed-product-sign 
+ 10.13. Метод получения массива ID прошедших валидацию товаров 
+ 639 
+ GET 
+ /nk/etagslist 
+ 10.14. Метод получения списка всех принадлежащих одному владельцу товаров 
+ 642 
+ GET 
+ /nk/image 
+ 10.15. Метод изменения размера изображения с заполнением недостающих полей белым цветом 
+ 643 
+ GET 
+ /nk/generate-gtins 
+ 10.16. Метод генерации черновиков кодов товаров 
+ 646 
+ POST 
+ /nk/feed 
+ 10.17. Метод создания и обновления товаров 
+ 658 
+ GET 
+ /nk/feed-status 
+ 10.18. Метод получения статуса фида по ID фида от его заказчика 
+ 664 
+ GET 
+ /nk/feed-moderation 
+ 10.19. Метод отправки на модерацию карточки товаров в статусе «Черновик» 
+ 666 
+ POST 
+ /nk/mark-check 
+ 10.20. Метод определения кода принадлежности товара к маркируемым товарным группам 
+ 670 
+ GET 
+ /nk/linked-gtins 
+ 10.21. Метод проверки доступа к списку кодов товаров со стороны субаккаунта 
+ 675 
+ POST 
+ /auth/simpleSignIn/{omsConnection} 
+ 11.1. Метод получения токена аутентификации в СУЗ 
+ 4. API Каталога маркированных товаров 
+ Извлечено строк методов/ URL : 25. 
+ Стр. 
+ HTTP 
+ Endpoint 
+ Раздел/назначение 
+ 8 
+ GET 
+ /v3/feed-product 
+ Метод « feed - product » возвращает всю имеющуюся информацию о карточке товара (о Вашей или о той, к которой 
+ 19 
+ GET 
+ /v3/product 
+ Метод « product » возвращает информацию по опубликованным и архивным карточкам товаров. Для просмотра 
+ 28 
+ GET 
+ /v3/short-product 
+ Метод « short - product » возвращает краткую или полную информацию о продукте (товаре). Данный метод доступен 
+ 38 
+ GET 
+ /v4/product-list 
+ см. раздел PDF 
+ 40 
+ GET 
+ /v3/etagslist 
+ Метод « etagslist » возвращает список всех товаров, принадлежащих определенному владельцу, вместе с хешем 
+ 42 
+ POST 
+ /v3/mark-check 
+ Метод « mark - check » предназначен для определения принадлежности товара с указанными кодом товара или 
+ 46 
+ GET 
+ /v3/generate-gtins 
+ Метод « generate - gtins » генерирует черновики кодов товаров и возвращает их коды товаров. 
+ 48 
+ POST 
+ /v3/feed 
+ Метод « feed » дает возможность компаниям – владельцам товаров создавать и обновлять товары. Создание и 
+ 61 
+ GET 
+ /v3/feed-status 
+ Метод « feed - status » предназначен для проверки статуса ранее отправленного пакета обновлений (фида). 
+ 68 
+ GET 
+ /v3/image 
+ Метод « image » дает возможность пропорционально изменить размер изображения с заполнением недостающих 
+ 69 
+ GET 
+ /v3/feed-moderation 
+ Метод « feed - moderation » для указанного в запросе параметра « good _ id » или связке параметров « gtin » и « inn » 
+ 70 
+ GET 
+ /v3/categories 
+ Метод « categories » используется для получения дерева категорий (корень дерева при этом не возвращается), 
+ 72 
+ GET 
+ /v3/attributes 
+ Метод « attributes » возвращает перечень атрибутов для создания карточки товара с указанным кодом ТН ВЭД или 
+ 77 
+ GET 
+ /v3/dictionary/isocountry 
+ Метод « isocountry » используется для получения справочника стран производства, зарегистрированных в 
+ 79 
+ GET 
+ /v3/brands 
+ Метод « brand » используется для получения списка товарных знаков (брендов), зарегистрированных в 
+ 80 
+ POST 
+ /v3/rd/suggest 
+ Метод « rd / suggest » используется для проверки наличия интересующего разрешительного документа в 
+ 82 
+ POST 
+ /v4/rd-info-by-gtin 
+ Метод «/ v 4/ rd - info - by - gtin » позволяет получить полную информацию о разрешительных документах (Декларация о 
+ 87 
+ POST 
+ /v4/rd-info 
+ Метод « v 4/ rd - info » позволяет получить полную информацию о разрешительных документах (Декларация о 
+ 91 
+ POST 
+ /v3/feed-product-document 
+ Метод « feed - product - document » возвращает XML товаров для подписи по запросу с указанием идентификатора 
+ 93 
+ POST 
+ /v3/feed-product-sign 
+ Метод « feed - product - sign » принимает массив объектов, содержащий идентификаторы товаров (« good _ id ») и 
+ 95 
+ POST 
+ /v3/feed-product-sign-pkcs 
+ Метод « feed - product - sign - pkcs » предназначен для подписи карточки товара или нескольких карточек с помощью 
+ 97 
+ GET 
+ /v3/linked-accounts 
+ см. раздел PDF 
+ 98 
+ GET 
+ /v3/linked-gtins 
+ Метод « linked - gtins » предназначен для запросов со стороны субаккаунта на предоставление списка компаний, 
+ 100 
+ POST 
+ /v3/linked-accounts-documents 
+ Метод « linked - accounts - documents » предназначен для формирования XML -файла, содержащего сведения о 
+ 103 
+ POST 
+ /v3/linked-accounts-sign 
+ Метод « linked - accounts - sign » предназначен для подписания XML -файла, содержащего сведения о предоставлении 
+ 5. Токены и общая инструкция API 
+ Источник 
+ Стр. 
+ HTTP 
+ Endpoint 
+ Раздел/назначение 
+ api tokens 
+ 11 
+ POST 
+ /api/v2/integration/connection?omsId=значениеидентификатораСУЗ 
+ 5.1. Запрос 
+ api tokens 
+ 15 
+ GET 
+ /auth/key 
+ 6.1.1. Запрос 
+ api tokens 
+ 16 
+ POST 
+ /auth/simpleSignIn/{omsConnection} 
+ авторизация/токен 
+ 6. Практические заметки 
+ Денежный баланс лицевого счёта: True API /elk/product-groups/balance/all и /elk/product-groups/balance. Нужен True API Bearer token, не SUZ clientToken. 
+ Для БАД ранее использовался productGroupId=17; productGroup в SUZ/OMS — bio. 
+ / warehouse / balance и / api / v 2/ wh / balance — складской/товарный баланс, не денежный лицевой счёт. 
+ Для обычного True API token используется /auth/simpleSignIn без omsConnection; для SUZ clientToken — /auth/simpleSignIn/{omsConnection}. 
+ 

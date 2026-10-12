@@ -1,0 +1,25 @@
+{
+  auto_https disable_redirects
+  admin off
+}
+
+https://chz.example.com {
+  encode zstd gzip
+  reverse_proxy 127.0.0.1:3040
+
+  header {
+    Strict-Transport-Security "max-age=31536000; includeSubDomains"
+    X-Content-Type-Options "nosniff"
+    Referrer-Policy "same-origin"
+    -Server
+  }
+
+  log {
+    output file C:\ProgramData\CHZPortal\logs\access.log {
+      roll_size 10mb
+      roll_keep 5
+      roll_keep_for 168h
+    }
+    format json
+  }
+}
